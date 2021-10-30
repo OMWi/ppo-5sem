@@ -6,13 +6,25 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/textInput"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
+        android:gravity="end"
         android:text="@string/_0"
+        android:textAllCaps="false"
         android:textSize="30sp"
-        android:textColor="@color/black"></TextView>
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/textResult"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:textAllCaps="false"
+        android:textSize="30sp"
+        android:textColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +45,7 @@
             android:onClick="onClickFunction"
             android:text="@string/_sin"
             android:textAllCaps="false"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
             android:id="@+id/buttonCos"
             android:layout_width="0dp"
@@ -47,7 +59,7 @@
             android:onClick="onClickFunction"
             android:text="@string/_cos"
             android:textAllCaps="false"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
             android:id="@+id/buttonTan"
             android:layout_width="0dp"
@@ -61,9 +73,9 @@
             android:onClick="onClickFunction"
             android:text="@string/_tan"
             android:textAllCaps="false"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
-            android:id="@+id/buttonCat"
+            android:id="@+id/buttonSqrt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -73,9 +85,9 @@
             android:insetRight="1dp"
             android:insetBottom="1dp"
             android:onClick="onClickFunction"
-            android:text="@string/_cat"
+            android:text="@string/_sqrt"
             android:textAllCaps="false"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -97,7 +109,7 @@
             android:onClick="onClickFunction"
             android:text="@string/_lg"
             android:textAllCaps="false"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
             android:id="@+id/buttonLn"
             android:layout_width="0dp"
@@ -111,7 +123,7 @@
             android:onClick="onClickFunction"
             android:text="@string/_ln"
             android:textAllCaps="false"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
             android:id="@+id/buttonLeftBracket"
             android:layout_width="0dp"
@@ -125,7 +137,7 @@
             android:onClick="onClickDigit"
             android:text="@string/_left_bracket"
             android:textAllCaps="false"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
             android:id="@+id/buttonRightBracket"
             android:layout_width="0dp"
@@ -139,7 +151,7 @@
             android:onClick="onClickDigit"
             android:text="@string/_right_bracket"
             android:textAllCaps="false"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -160,7 +172,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickAC"
             android:text="@string/_ac"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/buttonBackspace"
@@ -174,16 +186,17 @@
             android:insetBottom="1dp"
             android:onClick="onClickBackspace"
             android:text="@string/_backspace"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
-            android:id="@+id/buttonPercent"
-            android:text="@string/_percent"
-            android:textSize="22sp"
+            android:id="@+id/buttonModulo"
+            android:text="@string/_modulo"
+            android:textSize="20sp"
             android:backgroundTint="@color/blue_gray_700"
             android:insetTop="1dp"
             android:insetBottom="1dp"
             android:insetLeft="1dp"
             android:insetRight="1dp"
+            android:onClick="onClickOperation"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
@@ -200,7 +213,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickOperation"
             android:text="@string/_division"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -208,11 +221,25 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonFactorial"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue_gray_600"
+            android:insetLeft="1dp"
+            android:insetTop="1dp"
+            android:insetRight="1dp"
+            android:insetBottom="1dp"
+            android:onClick="onClickOperation"
+            android:text="@string/_factorial"
+            android:textSize="20sp" />
         <Button
             android:id="@+id/button1"
             android:onClick="onClickDigit"
             android:text="@string/_1"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:backgroundTint="@color/blue_gray_300"
             android:insetTop="1dp"
             android:insetBottom="1dp"
@@ -221,7 +248,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
-
         <Button
             android:id="@+id/button2"
             android:layout_width="0dp"
@@ -234,7 +260,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickDigit"
             android:text="@string/_2"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/button3"
@@ -248,7 +274,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickDigit"
             android:text="@string/_3"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/buttonMultiplication"
@@ -262,7 +288,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickOperation"
             android:text="@string/_multiplication"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -271,6 +297,20 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/buttonPower"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue_gray_600"
+            android:insetLeft="1dp"
+            android:insetTop="1dp"
+            android:insetRight="1dp"
+            android:insetBottom="1dp"
+            android:onClick="onClickOperation"
+            android:text="@string/_power"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
         <Button
             android:id="@+id/button4"
             android:layout_width="0dp"
@@ -283,7 +323,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickDigit"
             android:text="@string/_4"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
             android:id="@+id/button5"
             android:layout_width="0dp"
@@ -296,7 +336,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickDigit"
             android:text="@string/_5"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
             android:id="@+id/button6"
             android:layout_width="0dp"
@@ -309,7 +349,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickDigit"
             android:text="@string/_6"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/buttonMinus"
@@ -323,7 +363,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickOperation"
             android:text="@string/_minus"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -332,6 +372,20 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/buttonE"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue_gray_600"
+            android:insetLeft="1dp"
+            android:insetTop="1dp"
+            android:insetRight="1dp"
+            android:insetBottom="1dp"
+            android:onClick="onClickDigit"
+            android:text="@string/_e"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
         <Button
             android:id="@+id/button7"
             android:layout_width="0dp"
@@ -344,7 +398,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickDigit"
             android:text="@string/_7"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
             android:id="@+id/button8"
             android:layout_width="0dp"
@@ -357,7 +411,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickDigit"
             android:text="@string/_8"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
             android:id="@+id/button9"
             android:layout_width="0dp"
@@ -370,7 +424,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickDigit"
             android:text="@string/_9"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/buttonPlus"
@@ -384,7 +438,7 @@
             android:insetBottom="1dp"
             android:onClick="onClickOperation"
             android:text="@string/_plus"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -394,6 +448,33 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/buttonPi"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue_gray_600"
+            android:insetLeft="1dp"
+            android:insetTop="1dp"
+            android:insetRight="1dp"
+            android:insetBottom="1dp"
+            android:onClick="onClickDigit"
+            android:text="@string/_pi"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/button0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:backgroundTint="@color/blue_gray_300"
+            android:insetLeft="1dp"
+            android:insetTop="1dp"
+            android:insetRight="1dp"
+            android:insetBottom="1dp"
+            android:onClick="onClickDigit"
+            android:text="@string/_0"
+            android:textSize="20sp" />
         <Button
             android:id="@+id/buttonPoint"
             android:layout_width="0dp"
@@ -406,43 +487,17 @@
             android:insetBottom="1dp"
             android:onClick="onClickDigit"
             android:text="@string/_point"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
         <Button
-            android:id="@+id/button0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/blue_gray_300"
-            android:insetLeft="1dp"
-            android:insetTop="1dp"
-            android:insetRight="1dp"
-            android:insetBottom="1dp"
-            android:onClick="onClickDigit"
-            android:text="@string/_0"
-            android:textSize="22sp" />
-        <Button
-            android:id="@+id/buttonE"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/blue_gray_300"
-            android:insetLeft="1dp"
-            android:insetTop="1dp"
-            android:insetRight="1dp"
-            android:insetBottom="1dp"
-            android:onClick="onClickE"
-            android:text="@string/_e"
-            android:textAllCaps="false"
-            android:textSize="22sp" />
-        <Button
-            android:id="@+id/buttonEquals"
-            android:text="@string/_equals"
-            android:textSize="22sp"
+            android:id="@+id/buttonEqual"
+            android:text="@string/_equal"
+            android:textSize="20sp"
             android:backgroundTint="@color/blue_gray_700"
             android:insetTop="1dp"
             android:insetBottom="1dp"
             android:insetLeft="1dp"
             android:insetRight="1dp"
+            android:onClick="onClickEqual"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>

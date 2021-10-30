@@ -15,7 +15,7 @@
     <string name="_minus">-</string>
     <string name="_division">/</string>
     <string name="_multiplication">*</string>
-    <string name="_equals">=</string>
+    <string name="_equal">=</string>
     <string name="_left_bracket">(</string>
     <string name="_right_bracket">)</string>
     <string name="_sqrt">sqrt</string>
@@ -28,7 +28,11 @@
     <string name="_ac">AC</string>
     <string name="_c">C</string>
     <string name="_backspace">⌫</string>
-    <string name="_percent">%</string>
+    <string name="_modulo">%</string>
     <string name="_point">.</string>
     <string name="_e">e</string>
+    <string name="_2nd">2nd</string>
+    <string name="_power">^</string>
+    <string name="_factorial">!</string>
+    <string name="_pi">π</string>
 </resources>
