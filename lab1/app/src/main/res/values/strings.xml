@@ -1,38 +1,42 @@
 <resources>
     <string name="app_name">Calculator</string>
-    <string name="_0">0</string>
-    <string name="_1">1</string>
-    <string name="_2">2</string>
-    <string name="_3">3</string>
-    <string name="_4">4</string>
-    <string name="_5">5</string>
-    <string name="_6">6</string>
-    <string name="_7">7</string>
-    <string name="_8">8</string>
-    <string name="_9">9</string>
-
-    <string name="_plus">+</string>
-    <string name="_minus">-</string>
-    <string name="_division">/</string>
-    <string name="_multiplication">*</string>
-    <string name="_equal">=</string>
-    <string name="_left_bracket">(</string>
-    <string name="_right_bracket">)</string>
-    <string name="_sqrt">sqrt</string>
-    <string name="_sin">sin</string>
-    <string name="_cos">cos</string>
-    <string name="_tan">tan</string>
-    <string name="_cat">cat</string>
-    <string name="_lg">lg</string>
-    <string name="_ln">ln</string>
-    <string name="_ac">AC</string>
-    <string name="_c">C</string>
-    <string name="_backspace">⌫</string>
-    <string name="_modulo">%</string>
-    <string name="_point">.</string>
-    <string name="_e">e</string>
-    <string name="_2nd">2nd</string>
-    <string name="_power">^</string>
-    <string name="_factorial">!</string>
-    <string name="_pi">π</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="_1" translatable="false">1</string>
+    <string name="_2" translatable="false">2</string>
+    <string name="_3" translatable="false">3</string>
+    <string name="_4" translatable="false">4</string>
+    <string name="_5" translatable="false">5</string>
+    <string name="_6" translatable="false">6</string>
+    <string name="_7" translatable="false">7</string>
+    <string name="_8" translatable="false">8</string>
+    <string name="_9" translatable="false">9</string>
+    <string name="_plus" translatable="false">+</string>
+    <string name="_minus" translatable="false">-</string>
+    <string name="_division" translatable="false">/</string>
+    <string name="_multiplication" translatable="false">*</string>
+    <string name="_equal" translatable="false">=</string>
+    <string name="_left_bracket" translatable="false">(</string>
+    <string name="_right_bracket" translatable="false">)</string>
+    <string name="_sqrt" translatable="false">√</string>
+    <string name="_sin" translatable="false">sin</string>
+    <string name="_cos" translatable="false">cos</string>
+    <string name="_tan" translatable="false">tan</string>
+    <string name="_cat" translatable="false">cat</string>
+    <string name="_lg" translatable="false">lg</string>
+    <string name="_ln" translatable="false">ln</string>
+    <string name="_ac" translatable="false">AC</string>
+    <string name="_c" translatable="false">C</string>
+    <string name="_backspace" translatable="false">⌫</string>
+    <string name="_modulo" translatable="false">%</string>
+    <string name="_point" translatable="false">.</string>
+    <string name="_e" translatable="false">e</string>
+    <string name="_2nd" translatable="false">2nd</string>
+    <string name="_power" translatable="false">^</string>
+    <string name="_factorial" translatable="false">!</string>
+    <string name="_pi" translatable="false">π</string>
+    <string name="_errMsg">Error</string>
+    <string name="_sinh" translatable="false">sinh</string>
+    <string name="_cosh" translatable="false">cosh</string>
+    <string name="_tanh" translatable="false">tanh</string>
+    <string name="_cbrt" translatable="false">∛</string>
 </resources>

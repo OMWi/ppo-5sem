@@ -5,22 +5,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textInput"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:gravity="end"
-        android:text="@string/_0"
-        android:textAllCaps="false"
-        android:textSize="30sp"
-        android:textColor="@color/black"/>
+        android:layout_weight="1.5">
+        <TextView
+            android:id="@+id/textInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:gravity="end"
+            android:text="@string/_0"
+            android:textAllCaps="false"
+            android:textSize="30sp"
+            android:textColor="@color/black"/>
+    </ScrollView>
+
 
     <TextView
         android:id="@+id/textResult"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:gravity="end"
         android:textAllCaps="false"
         android:textSize="30sp"
@@ -75,7 +82,7 @@
             android:textAllCaps="false"
             android:textSize="20sp" />
         <Button
-            android:id="@+id/buttonSqrt"
+            android:id="@+id/buttonRoot"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -161,6 +168,20 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/button2nd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue_gray_700"
+            android:insetLeft="1dp"
+            android:insetTop="1dp"
+            android:insetRight="1dp"
+            android:insetBottom="1dp"
+            android:onClick="onClick2nd"
+            android:text="@string/_2nd"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+        <Button
             android:id="@+id/buttonAC"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -173,7 +194,6 @@
             android:onClick="onClickAC"
             android:text="@string/_ac"
             android:textSize="20sp" />
-
         <Button
             android:id="@+id/buttonBackspace"
             android:layout_width="0dp"
@@ -227,7 +247,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/blue_gray_600"
+            android:backgroundTint="@color/blue_gray_700"
             android:insetLeft="1dp"
             android:insetTop="1dp"
             android:insetRight="1dp"
@@ -302,7 +322,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/blue_gray_600"
+            android:backgroundTint="@color/blue_gray_700"
             android:insetLeft="1dp"
             android:insetTop="1dp"
             android:insetRight="1dp"
@@ -377,7 +397,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/blue_gray_600"
+            android:backgroundTint="@color/blue_gray_700"
             android:insetLeft="1dp"
             android:insetTop="1dp"
             android:insetRight="1dp"
@@ -453,7 +473,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/blue_gray_600"
+            android:backgroundTint="@color/blue_gray_700"
             android:insetLeft="1dp"
             android:insetTop="1dp"
             android:insetRight="1dp"
