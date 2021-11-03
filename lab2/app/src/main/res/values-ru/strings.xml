@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Список</string>
+    <string name="average_grade">Средняя оценка</string>
+    <string name="initials">ФИО</string>
+    <string name="grades">Оценки</string>
+</resources>

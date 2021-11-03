@@ -3,20 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/rounded_corner"
+    android:paddingStart="10dp">
 
     <TextView
         android:id="@+id/text_initials"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:backgroundTint="@color/purple_200"/>
+        android:textColor="@color/white"
+        android:backgroundTint="@color/purple_200"
+        />
 
     <TextView
         android:id="@+id/text_grades"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:textColor="@color/white"
         android:backgroundTint="@color/purple_500"/>
 
     <TextView
@@ -24,5 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:textColor="@color/white"
         android:backgroundTint="@color/purple_200"/>
 </LinearLayout>
