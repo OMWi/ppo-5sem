@@ -11,4 +11,8 @@
     <string name="enter_grade3">Enter grade 3</string>
     <string name="enter_surname">Enter surname</string>
     <string name="enter_name">Enter name</string>
+    <string name="grade_incorrect">Grade incorrect</string>
+    <string name="blank_input">Enter data</string>
+    <string name="enable_filter">Filter</string>
+    <string name="disable_filter">Turn off filter</string>
 </resources>

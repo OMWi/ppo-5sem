@@ -5,19 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 
-class CustomAdapter(_context: Context, results: MutableList<Enrollee>) : BaseAdapter() {
-    private var searchResults = results
+class CustomAdapter(_context: Context, _results: MutableList<Enrollee>) : BaseAdapter(), Filterable {
+    private var results = _results
+    private var filteredResults = _results
     private var context = _context
     private var inflater = LayoutInflater.from(context)
+    private var mFilter = ItemFilter()
+
+    override fun getFilter(): Filter {
+        return mFilter
+    }
 
     override fun getCount(): Int {
-        return searchResults.size
+        return filteredResults.size
     }
 
     override fun getItem(position: Int): Any {
-        return searchResults[position]
+        return filteredResults[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -37,7 +45,7 @@ class CustomAdapter(_context: Context, results: MutableList<Enrollee>) : BaseAda
         }
         convertView as View
 
-        var enrollee = searchResults[position]
+        var enrollee = filteredResults[position]
         viewHolder.textInitials.text = "${context.resources.getString(R.string.initials)}: ${enrollee.initials}"
         viewHolder.textAverageGrade.text = "${context.resources.getString(R.string.average_grade)}: ${enrollee.averageGrade}"
         var gradesStr = "${context.resources.getString(R.string.grades)}: "
@@ -49,9 +57,39 @@ class CustomAdapter(_context: Context, results: MutableList<Enrollee>) : BaseAda
         return convertView
     }
 
+    fun remove(enrollee: Enrollee) {
+        results.remove(enrollee)
+        filteredResults.remove(enrollee)
+    }
+
     private class ViewHolder(view: View) {
         var textInitials: TextView = view.findViewById(R.id.text_initials)
         var textGrades: TextView = view.findViewById(R.id.text_grades)
         var textAverageGrade: TextView = view.findViewById(R.id.text_averageGrade)
+    }
+
+    private inner class ItemFilter : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filterValue = constraint.toString().toDouble()
+            val filterResults = FilterResults()
+            val list = results
+            val count = list.size
+            val newList = mutableListOf<Enrollee>()
+            var grade: Double
+            for (i in 0 until count) {
+                grade = list[i].averageGrade
+                if (grade > filterValue) {
+                    newList.add(list[i])
+                }
+            }
+            filterResults.values = newList
+            filterResults.count = newList.size
+            return filterResults
+        }
+
+        override fun publishResults(constraint: CharSequence?, _results: FilterResults?) {
+            filteredResults = _results!!.values as MutableList<Enrollee>
+            notifyDataSetChanged()
+        }
     }
 }

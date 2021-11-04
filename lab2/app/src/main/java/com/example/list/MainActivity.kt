@@ -19,9 +19,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var listView: ListView
     private lateinit var adapter: CustomAdapter
     private var itemPosition = -1
+    private var totalAverage = 0.0
+    private var isFiltered = false
 
     private fun addEnrollee(i: Int) {
-        list.add(Enrollee("Initials$i", arrayOf(1, 3, 5)))
+        list.add(Enrollee("Surname$i Name$i", arrayOf(i, i, i)))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,21 +36,17 @@ class MainActivity : AppCompatActivity() {
         adapter = CustomAdapter(this, list)
         listView.adapter = adapter
         registerForContextMenu(listView)
+        onListChange()
+    }
 
-        //parent - listView; view - layout; position, id - list item index
-        /*
-        listView.setOnItemLongClickListener { parent, view, position, id ->
-            textView.text = "position=$position\nid=$id"
-            try {
-                list.add(position, Enrollee("Initials_copy", arrayOf(1, 1, 1)))
-                adapter.notifyDataSetChanged()
-            }
-            catch (e: Exception) {
-                textView.text = "${textView.text}\nerr:${e.message}"
-            }
-            return@setOnItemLongClickListener true
+    private fun onListChange() {
+        if (list.isNotEmpty()) {
+            totalAverage = list.sumOf { it.averageGrade } / list.size
+            textView.text = "${resources.getString(R.string.average_grade)} $totalAverage"
         }
-         */
+        else {
+            textView.text = "${resources.getString(R.string.average_grade)}"
+        }
     }
 
     //context menu funcs
@@ -60,12 +58,22 @@ class MainActivity : AppCompatActivity() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_delete -> {
-                list.removeAt(itemPosition)
-                adapter.notifyDataSetChanged()
+                val enrollee = adapter.getItem(itemPosition) as Enrollee
+                list.remove(enrollee)
+                onListChange()
+                if (isFiltered) {
+                    adapter.filter.filter(totalAverage.toString())
+                }
+                else {
+                    adapter.filter.filter("-1")
+                }
                 true
             }
             R.id.menu_edit -> {
-                Toast.makeText(this, "edit $itemPosition", Toast.LENGTH_LONG).show()
+                val intent = Intent(applicationContext, InputActivity::class.java)
+                intent.putExtra("action", resources.getString(R.string.edit))
+                intent.putExtra("enrollee", adapter.getItem(itemPosition) as Enrollee)
+                startActivityForResult(intent, 1)
                 true
             }
             else -> super.onContextItemSelected(item)
@@ -77,14 +85,27 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.options_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.menu_add -> {
-                Toast.makeText(this, "add", Toast.LENGTH_LONG).show()
-                var intent = Intent(applicationContext, InputActivity::class.java)
+                val intent = Intent(applicationContext, InputActivity::class.java)
                 intent.putExtra("action", resources.getString(R.string.add))
-                if (intent != null) startActivity(intent)
+                startActivityForResult(intent, 0)
+                true
+            }
+            R.id.menu_filter -> {
+                item.title = when(isFiltered) {
+                    false -> {
+                        adapter.filter.filter(totalAverage.toString())
+                        resources.getString(R.string.disable_filter)
+                    }
+                    else -> {
+                        adapter.filter.filter("-1")
+                        resources.getString(R.string.enable_filter)
+                    }
+
+                }
+                isFiltered = !isFiltered
                 true
             }
             else -> {
@@ -93,6 +114,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
+    //
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(resultCode) {
+            0 -> {
+                val newEnrollee: Enrollee = data!!.extras!!.get("enrollee") as Enrollee
+                list.add(newEnrollee)
+                adapter.notifyDataSetChanged()
+                onListChange()
+                if (isFiltered) {
+                    adapter.filter.filter(totalAverage.toString())
+                }
+            }
+            1 -> {
+                val editedEnrollee: Enrollee = data!!.extras!!.get("enrollee") as Enrollee
+                var oldEnrollee = list.find{ it.id == editedEnrollee.id }
+                oldEnrollee!!.initials = editedEnrollee.initials
+                oldEnrollee.grades = editedEnrollee.grades
+                oldEnrollee.averageGrade = editedEnrollee.averageGrade
+                adapter.notifyDataSetChanged()
+                onListChange()
+                if (isFiltered) {
+                    adapter.filter.filter(totalAverage.toString())
+                }
+            }
+        }
+    }
 }

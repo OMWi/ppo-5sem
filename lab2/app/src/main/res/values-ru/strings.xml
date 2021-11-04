@@ -12,4 +12,8 @@
     <string name="enter_grade3">Введите 3 оценку</string>
     <string name="enter_surname">Введите фамилию</string>
     <string name="enter_name">Введите имя</string>
+    <string name="grade_incorrect">Некорректная оценка</string>
+    <string name="blank_input">Введите данные</string>
+    <string name="enable_filter">Отфильтровать</string>
+    <string name="disable_filter">Снять фильтр</string>
 </resources>
