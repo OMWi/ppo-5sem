@@ -26,6 +26,11 @@ class MainActivity : AppCompatActivity() {
     private var str = "0"
     private var bracketCount = 0
     private var isAltButtons = false
+    private val inputsKey = "inputs"
+    private val strKey = "str"
+    private val bracketCountKey = "bracketCount"
+    private val isAltButtonsKey = "isAltButton"
+    private val resultKey = "result"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +46,37 @@ class MainActivity : AppCompatActivity() {
         inputText.doAfterTextChanged { _ ->
             scrollView.fullScroll(View.FOCUS_DOWN)
         }
+        if (savedInstanceState != null) {
+            val inputsList = savedInstanceState.getCharSequence(inputsKey).toString().split(" ")
+            if (str == "0") inputs.clear()
+            for (input in inputsList) inputs.add(input)
+            inputs.removeLast()
+            str = savedInstanceState.getCharSequence(strKey).toString()
+            bracketCount = savedInstanceState.getInt(bracketCountKey)
+            isAltButtons = savedInstanceState.getBoolean(isAltButtonsKey)
+            val resStr = savedInstanceState.getCharSequence(resultKey).toString()
+            resultText.text = resStr
+            if (isAltButtons) {
+                sinButton.text = resources.getString(R.string._sinh)
+                cosButton.text = resources.getString(R.string._cosh)
+                tanButton.text = resources.getString(R.string._tanh)
+                rootButton.text = resources.getString(R.string._cbrt)
+            }
+        }
+        inputText.text = str
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        var inputsSequence = StringBuilder()
+        for (input in inputs) {
+            inputsSequence.append("$input ")
+        }
+        outState.putCharSequence(inputsKey, inputsSequence)
+        outState.putCharSequence(strKey, str)
+        outState.putInt(bracketCountKey, bracketCount)
+        outState.putBoolean(isAltButtonsKey, isAltButtons)
+        outState.putCharSequence(resultKey, resultText.text.toString())
     }
 
     private var factorial: Operator = object : Operator("!", 1, true, PRECEDENCE_POWER + 1) {
@@ -69,7 +105,6 @@ class MainActivity : AppCompatActivity() {
             bracketCount++
         if (buttonText == ")")
             bracketCount--
-        resultText.text = "brackets = $bracketCount"
         inputText.text = str
     }
 
@@ -80,7 +115,6 @@ class MainActivity : AppCompatActivity() {
         inputText.text = "0"
         resultText.text = ""
         bracketCount = 0
-        resultText.text = "brackets = $bracketCount"
     }
 
     fun onClickBackspace(v : View) {
@@ -123,7 +157,6 @@ class MainActivity : AppCompatActivity() {
                 str.dropLast(lastInput.length)
             }
         }
-        resultText.text = "brackets = $bracketCount; str=" + str
         if (str.isEmpty()) {
             str = "0"
             inputs.add("0")
@@ -183,11 +216,9 @@ class MainActivity : AppCompatActivity() {
         }
         inputText.text = str
         bracketCount++
-        resultText.text = "brackets = $bracketCount"
     }
 
-    fun onClick2nd(v : View) {
-        v as Button
+    private fun changeAlts() {
         if (isAltButtons) {
             sinButton.text = resources.getString(R.string._sin)
             cosButton.text = resources.getString(R.string._cos)
@@ -203,35 +234,32 @@ class MainActivity : AppCompatActivity() {
         isAltButtons = !isAltButtons
     }
 
+    fun onClick2nd(v : View) {
+        changeAlts()
+    }
+
     fun onClickEqual(v : View) {
-        try {
-            while (bracketCount > 0) {
-                inputs.add(")")
-                str = "$str)"
-                bracketCount--
-            }
-            resultText.text = "brackets = $bracketCount"
-            inputText.text = str
-            var expression = ""
-            for (elem in inputs) {
-                expression += elem
-            }
-            val ex = ExpressionBuilder(expression).operator(factorial).build()
-            var res = ex.evaluate()
-            var resString = "%.8f".format(res)
-            var pointIndex = resString.indexOfLast { it == ','}
-            if (pointIndex != -1) {
-                resString = resString.dropLastWhile { it == '0'}
-                if (resString.last() == ',') {
-                    resString = resString.dropLast(1)
-                    if (resString == "-0") resString = "0"
-                }
-            }
-            resultText.text = resString
+        while (bracketCount > 0) {
+            inputs.add(")")
+            str = "$str)"
+            bracketCount--
         }
-        catch (e : Exception) {
-            val errMsg : String = resources.getString(R.string._errMsg)
-            resultText.text = errMsg
+        inputText.text = str
+        var expression = ""
+        for (elem in inputs) {
+            expression += elem
         }
+        val ex = ExpressionBuilder(expression).operator(factorial).build()
+        var res = ex.evaluate()
+        var resString = "%.8f".format(res)
+        var pointIndex = resString.indexOfLast { it == ','}
+        if (pointIndex != -1) {
+            resString = resString.dropLastWhile { it == '0'}
+            if (resString.last() == ',') {
+                resString = resString.dropLast(1)
+                if (resString == "-0") resString = "0"
+            }
+        }
+        resultText.text = resString
     }
 }
