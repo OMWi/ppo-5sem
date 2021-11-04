@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ListView
 import android.widget.TextView
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     private var list = mutableListOf<Enrollee>()
@@ -24,10 +25,16 @@ class MainActivity : AppCompatActivity() {
         listView = findViewById(R.id.listView)
         adapter = CustomAdapter(this, list)
         listView.adapter = adapter
-
         //parent - listView; view - layout; position, id - list item index
         listView.setOnItemLongClickListener { parent, view, position, id ->
             textView.text = "position=$position\nid=$id"
+            try {
+                list.add(position, Enrollee("Initials_copy", arrayOf(1, 1, 1)))
+                adapter.notifyDataSetChanged()
+            }
+            catch (e: Exception) {
+                textView.text = "${textView.text}\nerr:${e.message}"
+            }
             return@setOnItemLongClickListener true
         }
     }

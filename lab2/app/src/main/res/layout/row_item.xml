@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/purple_200"
+        android:textColor="@color/gray_100"
+        android:paddingTop="4dp"
         />
 
     <TextView
@@ -21,14 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/purple_500"/>
+        android:textColor="@color/gray_100"/>
 
     <TextView
         android:id="@+id/text_averageGrade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/purple_200"/>
+        android:textColor="@color/gray_100"
+        android:paddingBottom="4dp"/>
 </LinearLayout>

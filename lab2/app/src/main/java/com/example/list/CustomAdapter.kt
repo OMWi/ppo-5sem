@@ -10,6 +10,7 @@ import android.widget.TextView
 class CustomAdapter(_context: Context, results: MutableList<Enrollee>) : BaseAdapter() {
     private var searchResults = results
     private var context = _context
+    private var inflater = LayoutInflater.from(context)
 
     override fun getCount(): Int {
         return searchResults.size
@@ -25,18 +26,32 @@ class CustomAdapter(_context: Context, results: MutableList<Enrollee>) : BaseAda
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var convertView = convertView
-        convertView = LayoutInflater.from(context).inflate(R.layout.row_item, null)
-        val initials = convertView?.findViewById<TextView>(R.id.text_initials)
-        val grades = convertView?.findViewById<TextView>(R.id.text_grades)
-        val averageGrade = convertView?.findViewById<TextView>(R.id.text_averageGrade)
-        initials!!.text = "${context.resources.getString(R.string.initials)}: ${searchResults[position].initials}"
-        averageGrade!!.text = "${context.resources.getString(R.string.average_grade)}: ${searchResults[position].averageGrade}"
+        var viewHolder: ViewHolder
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.row_item, parent, false)
+            viewHolder = ViewHolder(convertView)
+            convertView.tag = viewHolder
+        }
+        else {
+            viewHolder = convertView.tag as ViewHolder
+        }
+        convertView as View
+
+        var enrollee = searchResults[position]
+        viewHolder.textInitials.text = "${context.resources.getString(R.string.initials)}: ${enrollee.initials}"
+        viewHolder.textAverageGrade.text = "${context.resources.getString(R.string.average_grade)}: ${enrollee.averageGrade}"
         var gradesStr = "${context.resources.getString(R.string.grades)}: "
-        for (grade in searchResults[position].grades) {
+        for (grade in enrollee.grades) {
             gradesStr += "$grade, "
         }
         gradesStr = gradesStr.dropLast(2)
-        grades!!.text = gradesStr
+        viewHolder.textGrades.text = gradesStr
         return convertView
+    }
+
+    private class ViewHolder(view: View) {
+        var textInitials: TextView = view.findViewById(R.id.text_initials)
+        var textGrades: TextView = view.findViewById(R.id.text_grades)
+        var textAverageGrade: TextView = view.findViewById(R.id.text_averageGrade)
     }
 }
