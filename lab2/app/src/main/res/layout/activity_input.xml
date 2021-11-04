@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="20sp"
+            android:text="@string/enter_name"
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="5dp"/>
+        <EditText
+            android:id="@+id/edit_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="20sp"
+            android:text="@string/enter_surname"
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="5dp"/>
+        <EditText
+            android:id="@+id/edit_surname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="20sp"
+            android:text="@string/enter_grade1"
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="5dp"/>
+
+        <EditText
+            android:id="@+id/edit_grade1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="20sp"
+            android:text="@string/enter_grade2"
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="5dp"/>
+
+        <EditText
+            android:id="@+id/edit_grade2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="20sp"
+            android:text="@string/enter_grade3"
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="5dp"/>
+
+        <EditText
+            android:id="@+id/edit_grade3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/button_color"
+        android:layout_marginHorizontal="5dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:paddingVertical="10dp"
+        android:textAllCaps="false"/>
+</LinearLayout>

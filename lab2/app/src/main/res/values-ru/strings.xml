@@ -2,6 +2,14 @@
 <resources>
     <string name="app_name">Список</string>
     <string name="average_grade">Средняя оценка</string>
-    <string name="initials">ФИО</string>
+    <string name="initials">Инициалы</string>
     <string name="grades">Оценки</string>
+    <string name="edit">Изменить</string>
+    <string name="delete">Удалить</string>
+    <string name="add">Добавить</string>
+    <string name="enter_grade1">Введите 1 оценку</string>
+    <string name="enter_grade2">Введите 2 оценку</string>
+    <string name="enter_grade3">Введите 3 оценку</string>
+    <string name="enter_surname">Введите фамилию</string>
+    <string name="enter_name">Введите имя</string>
 </resources>

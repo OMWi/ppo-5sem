@@ -28,7 +28,7 @@ class CustomAdapter(_context: Context, results: MutableList<Enrollee>) : BaseAda
         var convertView = convertView
         var viewHolder: ViewHolder
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.row_item, parent, false)
+            convertView = inflater.inflate(R.layout.list_item, parent, false)
             viewHolder = ViewHolder(convertView)
             convertView.tag = viewHolder
         }
