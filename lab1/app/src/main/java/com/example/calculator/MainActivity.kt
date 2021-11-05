@@ -14,7 +14,8 @@ import net.objecthunter.exp4j.operator.Operator
 class MainActivity : AppCompatActivity() {
     private lateinit var inputText: TextView
     private lateinit var resultText: TextView
-    private lateinit var scrollView: ScrollView
+    private lateinit var scrollView1: ScrollView
+    private lateinit var scrollView2: ScrollView
     private lateinit var sinButton: Button
     private lateinit var cosButton: Button
     private lateinit var tanButton: Button
@@ -37,14 +38,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         inputText = findViewById(R.id.textInput)
         resultText = findViewById(R.id.textResult)
-        scrollView = findViewById(R.id.scrollView)
+        scrollView1 = findViewById(R.id.scrollView1)
+        scrollView2 = findViewById(R.id.scrollView2)
         sinButton = findViewById(R.id.buttonSin)
         cosButton = findViewById(R.id.buttonCos)
         tanButton = findViewById(R.id.buttonTan)
         rootButton = findViewById(R.id.buttonRoot)
 
         inputText.doAfterTextChanged { _ ->
-            scrollView.fullScroll(View.FOCUS_DOWN)
+            scrollView1.fullScroll(View.FOCUS_DOWN)
+        }
+        resultText.doAfterTextChanged { _ ->
+            scrollView2.fullScroll(View.FOCUS_DOWN)
         }
         if (savedInstanceState != null) {
             val inputsList = savedInstanceState.getCharSequence(inputsKey).toString().split(" ")
@@ -239,27 +244,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickEqual(v : View) {
-        while (bracketCount > 0) {
-            inputs.add(")")
-            str = "$str)"
-            bracketCount--
-        }
-        inputText.text = str
-        var expression = ""
-        for (elem in inputs) {
-            expression += elem
-        }
-        val ex = ExpressionBuilder(expression).operator(factorial).build()
-        var res = ex.evaluate()
-        var resString = "%.8f".format(res)
-        var pointIndex = resString.indexOfLast { it == ','}
-        if (pointIndex != -1) {
-            resString = resString.dropLastWhile { it == '0'}
-            if (resString.last() == ',') {
-                resString = resString.dropLast(1)
-                if (resString == "-0") resString = "0"
+        try {
+            while (bracketCount > 0) {
+                inputs.add(")")
+                str = "$str)"
+                bracketCount--
             }
+            inputText.text = str
+            var expression = ""
+            for (elem in inputs) {
+                expression += elem
+            }
+            val ex = ExpressionBuilder(expression).operator(factorial).build()
+            var res = ex.evaluate()
+            var resString = "%.8f".format(res)
+            var pointIndex = resString.indexOfLast { it == ','}
+            if (pointIndex != -1) {
+                resString = resString.dropLastWhile { it == '0'}
+                if (resString.last() == ',') {
+                    resString = resString.dropLast(1)
+                    if (resString == "-0") resString = "0"
+                }
+            }
+            resultText.text = resString
         }
-        resultText.text = resString
+        catch (e: Exception) {
+            resultText.text = resources.getString(R.string._errMsg)
+        }
+
     }
 }

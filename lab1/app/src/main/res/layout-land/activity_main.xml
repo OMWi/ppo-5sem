@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <ScrollView
-        android:id="@+id/scrollView"
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.8">
@@ -22,15 +22,20 @@
             android:textColor="@color/black"/>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/textResult"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
-        android:gravity="end"
-        android:textAllCaps="false"
-        android:textSize="30sp"
-        android:textColor="@color/black"/>
+        android:layout_weight="0.8">
+        <TextView
+            android:id="@+id/textResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAllCaps="false"
+            android:textSize="30sp"
+            android:textColor="@color/black"/>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
