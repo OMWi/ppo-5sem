@@ -16,4 +16,9 @@
     <string name="blank_input">Введите данные</string>
     <string name="enable_filter">Отфильтровать</string>
     <string name="disable_filter">Снять фильтр</string>
+    <string name="save">Сохранить</string>
+    <string name="open">Открыть</string>
+    <string name="data_saved">Данные сохранены</string>
+    <string name="data_loaded">Данные загружены</string>
+    <string name="choose_file">Выберите файл</string>
 </resources>

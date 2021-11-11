@@ -6,4 +6,10 @@
     <item
         android:id="@+id/menu_filter"
         android:title="@string/enable_filter"/>
+    <item
+        android:id="@+id/menu_save"
+        android:title="@string/save"/>
+    <item
+        android:id="@+id/menu_open"
+        android:title="@string/open"/>
 </menu>

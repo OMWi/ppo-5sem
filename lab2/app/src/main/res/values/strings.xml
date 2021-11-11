@@ -15,4 +15,9 @@
     <string name="blank_input">Enter data</string>
     <string name="enable_filter">Filter</string>
     <string name="disable_filter">Turn off filter</string>
+    <string name="save">Save</string>
+    <string name="open">Open</string>
+    <string name="data_saved">Data saved</string>
+    <string name="data_loaded">Data loaded</string>
+    <string name="choose_file">Choose file</string>
 </resources>

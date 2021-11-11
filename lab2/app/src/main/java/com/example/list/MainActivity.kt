@@ -1,7 +1,6 @@
 package com.example.list
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.Menu
@@ -11,7 +10,8 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
-import java.lang.Exception
+import androidx.appcompat.app.AppCompatActivity
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
     private var list = mutableListOf<Enrollee>()
@@ -21,16 +21,16 @@ class MainActivity : AppCompatActivity() {
     private var itemPosition = -1
     private var totalAverage = 0.0
     private var isFiltered = false
-
-    private fun addEnrollee(i: Int) {
-        list.add(Enrollee("Surname$i Name$i", arrayOf(i, i, i)))
-    }
+    private val filePath = "Enrollee"
+    private val fileName = "file.json"
+    private lateinit var manager: EnrolleeManager
+    private val PICKFILECODE = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        for (i in 1..5) addEnrollee(i)
+        manager = EnrolleeManager(File(getExternalFilesDir(filePath), fileName))
         textView = findViewById(R.id.textView)
         listView = findViewById(R.id.listView)
         adapter = CustomAdapter(this, list)
@@ -42,14 +42,15 @@ class MainActivity : AppCompatActivity() {
     private fun onListChange() {
         if (list.isNotEmpty()) {
             totalAverage = list.sumOf { it.averageGrade } / list.size
-            textView.text = "${resources.getString(R.string.average_grade)} $totalAverage"
+            textView.text = "${resources.getString(R.string.average_grade)} %.2f".format(totalAverage)
         }
         else {
             textView.text = "${resources.getString(R.string.average_grade)}"
         }
+        adapter.notifyDataSetChanged()
     }
 
-    //context menu funcs
+    //context menu functions
     override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
         menuInflater.inflate(R.menu.context_menu, menu)
         itemPosition = (menuInfo as AdapterView.AdapterContextMenuInfo).position
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //options menu funcs
+    //options menu functions
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -103,9 +104,21 @@ class MainActivity : AppCompatActivity() {
                         adapter.filter.filter("-1")
                         resources.getString(R.string.enable_filter)
                     }
-
                 }
                 isFiltered = !isFiltered
+                true
+            }
+            R.id.menu_save -> {
+                manager.save(list)
+
+                Toast.makeText(this, resources.getString(R.string.data_saved), Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.menu_open -> {
+                var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+                chooseFile.type = "application/json"
+                chooseFile = Intent.createChooser(chooseFile, resources.getString(R.string.choose_file))
+                startActivityForResult(chooseFile, PICKFILECODE)
                 true
             }
             else -> {
@@ -117,11 +130,11 @@ class MainActivity : AppCompatActivity() {
     //
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(resultCode) {
+        if (data == null) return
+        when(requestCode) {
             0 -> {
                 val newEnrollee: Enrollee = data!!.extras!!.get("enrollee") as Enrollee
                 list.add(newEnrollee)
-                adapter.notifyDataSetChanged()
                 onListChange()
                 if (isFiltered) {
                     adapter.filter.filter(totalAverage.toString())
@@ -133,10 +146,16 @@ class MainActivity : AppCompatActivity() {
                 oldEnrollee!!.initials = editedEnrollee.initials
                 oldEnrollee.grades = editedEnrollee.grades
                 oldEnrollee.averageGrade = editedEnrollee.averageGrade
-                adapter.notifyDataSetChanged()
                 onListChange()
                 if (isFiltered) {
                     adapter.filter.filter(totalAverage.toString())
+                }
+            }
+            PICKFILECODE -> {
+                if (resultCode == -1) {
+                    val uri = data.data
+                    manager.read(list, contentResolver.openInputStream(uri!!))
+                    onListChange()
                 }
             }
         }

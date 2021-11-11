@@ -47,7 +47,7 @@ class CustomAdapter(_context: Context, _results: MutableList<Enrollee>) : BaseAd
 
         var enrollee = filteredResults[position]
         viewHolder.textInitials.text = "${context.resources.getString(R.string.initials)}: ${enrollee.initials}"
-        viewHolder.textAverageGrade.text = "${context.resources.getString(R.string.average_grade)}: ${enrollee.averageGrade}"
+        viewHolder.textAverageGrade.text = "${context.resources.getString(R.string.average_grade)}: %.2f".format(enrollee.averageGrade)
         var gradesStr = "${context.resources.getString(R.string.grades)}: "
         for (grade in enrollee.grades) {
             gradesStr += "$grade, "
@@ -55,11 +55,6 @@ class CustomAdapter(_context: Context, _results: MutableList<Enrollee>) : BaseAd
         gradesStr = gradesStr.dropLast(2)
         viewHolder.textGrades.text = gradesStr
         return convertView
-    }
-
-    fun remove(enrollee: Enrollee) {
-        results.remove(enrollee)
-        filteredResults.remove(enrollee)
     }
 
     private class ViewHolder(view: View) {
@@ -78,11 +73,11 @@ class CustomAdapter(_context: Context, _results: MutableList<Enrollee>) : BaseAd
             var grade: Double
             for (i in 0 until count) {
                 grade = list[i].averageGrade
-                if (grade > filterValue) {
+                if (grade >= filterValue) {
                     newList.add(list[i])
                 }
             }
-            filterResults.values = newList
+            filterResults.values = newList.sortedByDescending { it.averageGrade }
             filterResults.count = newList.size
             return filterResults
         }
