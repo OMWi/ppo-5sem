@@ -68,13 +68,12 @@ class CustomAdapter(_context: Context, _results: MutableList<Enrollee>) : BaseAd
             val filterValue = constraint.toString().toDouble()
             val filterResults = FilterResults()
             val list = results
-            val count = list.size
             val newList = mutableListOf<Enrollee>()
             var grade: Double
-            for (i in 0 until count) {
-                grade = list[i].averageGrade
+            for (elem in list) {
+                grade = elem.averageGrade
                 if (grade >= filterValue) {
-                    newList.add(list[i])
+                    newList.add(elem)
                 }
             }
             filterResults.values = newList.sortedByDescending { it.averageGrade }

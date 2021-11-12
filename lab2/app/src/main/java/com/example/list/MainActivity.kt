@@ -48,6 +48,12 @@ class MainActivity : AppCompatActivity() {
             textView.text = "${resources.getString(R.string.average_grade)}"
         }
         adapter.notifyDataSetChanged()
+        if (isFiltered) {
+            adapter.filter.filter(totalAverage.toString())
+        }
+        else {
+            adapter.filter.filter("-1")
+        }
     }
 
     //context menu functions
@@ -62,12 +68,6 @@ class MainActivity : AppCompatActivity() {
                 val enrollee = adapter.getItem(itemPosition) as Enrollee
                 list.remove(enrollee)
                 onListChange()
-                if (isFiltered) {
-                    adapter.filter.filter(totalAverage.toString())
-                }
-                else {
-                    adapter.filter.filter("-1")
-                }
                 true
             }
             R.id.menu_edit -> {
@@ -136,9 +136,6 @@ class MainActivity : AppCompatActivity() {
                 val newEnrollee: Enrollee = data!!.extras!!.get("enrollee") as Enrollee
                 list.add(newEnrollee)
                 onListChange()
-                if (isFiltered) {
-                    adapter.filter.filter(totalAverage.toString())
-                }
             }
             1 -> {
                 val editedEnrollee: Enrollee = data!!.extras!!.get("enrollee") as Enrollee
@@ -147,9 +144,6 @@ class MainActivity : AppCompatActivity() {
                 oldEnrollee.grades = editedEnrollee.grades
                 oldEnrollee.averageGrade = editedEnrollee.averageGrade
                 onListChange()
-                if (isFiltered) {
-                    adapter.filter.filter(totalAverage.toString())
-                }
             }
             PICKFILECODE -> {
                 if (resultCode == -1) {
