@@ -5,24 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.widget.ImageView
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var playerPosition: TextView
-    private lateinit var playerDuration: TextView
-    private lateinit var seekBar: SeekBar
-    private lateinit var btRewind: ImageView
-    private lateinit var btPrev: ImageView
-    private lateinit var btPlay: ImageView
-    private lateinit var btPause: ImageView
-    private lateinit var btNext: ImageView
-    private lateinit var btForward: ImageView
+    private lateinit var listView: ListView
+    private lateinit var adapter: CustomAdapter
 
     private var REQUEST_CODE = 1
     private var audioList = mutableListOf<Audio>()
@@ -32,15 +22,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        playerPosition = findViewById(R.id.player_position)
-        playerDuration = findViewById(R.id.player_duration)
-        seekBar = findViewById(R.id.seek_bar)
-        btRewind = findViewById(R.id.bt_rewind)
-        btPrev = findViewById(R.id.bt_prev)
-        btPlay = findViewById(R.id.bt_play)
-        btPause = findViewById(R.id.bt_pause)
-        btNext = findViewById(R.id.bt_next)
-        btForward = findViewById(R.id.bt_forward)
+        listView = findViewById(R.id.list_view)
+        adapter = CustomAdapter(this, audioList)
+        listView.adapter = adapter
+
         permission()
         getAudioList()
     }
@@ -86,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             }
             cursor.close()
         }
+        adapter.notifyDataSetChanged()
     }
 
 }
