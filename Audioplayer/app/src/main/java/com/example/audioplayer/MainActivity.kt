@@ -14,8 +14,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var listView: ListView
     private lateinit var adapter: CustomAdapter
 
-    private var REQUEST_CODE = 1
+    private var REQUEST_PERMISSION = 1
     private var audioList = mutableListOf<Audio>()
+    private var videoList = mutableListOf<Video>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +29,17 @@ class MainActivity : AppCompatActivity() {
 
         permission()
         getAudioList()
-//        getVideoList()
+        getVideoList()
+
+        val intent = Intent(applicationContext, VideoActivity::class.java)
+        intent.putExtra("video_list", videoList as ArrayList<Video>)
+        intent.putExtra("position", 0)
+        startActivity(intent)
+
+
 
         listView.setOnItemClickListener { parent, view, position, id ->
-            val intent = Intent(applicationContext, PlayerActivity::class.java)
+            val intent = Intent(applicationContext, AudioActivity::class.java)
             intent.putExtra("audio_list", audioList as ArrayList<Audio>)
             intent.putExtra("position", position)
             startActivity(intent)
@@ -40,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun permission() {
         if (ContextCompat.checkSelfPermission(applicationContext, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_PERMISSION);
         }
     }
 
@@ -50,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE) {
+        if (requestCode == REQUEST_PERMISSION) {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 permission()
             }
@@ -98,6 +106,8 @@ class MainActivity : AppCompatActivity() {
                     continue
                 val title = cursor.getString(0)
                 val duration = cursor.getString(1)
+                val video = Video(path, title, duration)
+                videoList.add(video)
             }
             cursor.close()
         }
