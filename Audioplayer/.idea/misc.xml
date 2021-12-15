@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.28055555555555556" />
         <entry key="app/src/main/res/drawable/ic_music.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_audio.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3148148148148148" />
         <entry key="app/src/main/res/layout/activity_player.xml" value="0.31875" />
         <entry key="app/src/main/res/layout/audio_item.xml" value="0.31875" />

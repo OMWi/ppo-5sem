@@ -1,10 +1,10 @@
 package com.example.audioplayer
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -28,6 +28,14 @@ class MainActivity : AppCompatActivity() {
 
         permission()
         getAudioList()
+//        getVideoList()
+
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val intent = Intent(applicationContext, PlayerActivity::class.java)
+            intent.putExtra("audio_list", audioList as ArrayList<Audio>)
+            intent.putExtra("position", position)
+            startActivity(intent)
+        }
     }
 
     private fun permission() {
@@ -72,6 +80,27 @@ class MainActivity : AppCompatActivity() {
             cursor.close()
         }
         adapter.notifyDataSetChanged()
+    }
+
+    private fun getVideoList() {
+        val uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+        val projection = arrayOf(
+            MediaStore.Video.Media.TITLE,
+            MediaStore.Video.Media.DURATION,
+            MediaStore.Video.Media.DATA
+        )
+        val cursor = this.contentResolver.query(uri, projection, null, null, null)
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                val path = cursor.getString(2)
+                print(path)
+                if (!path.contains("/MediaPlayer/Video/"))
+                    continue
+                val title = cursor.getString(0)
+                val duration = cursor.getString(1)
+            }
+            cursor.close()
+        }
     }
 
 }
