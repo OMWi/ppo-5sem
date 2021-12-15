@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        listView = findViewById(R.id.list_view)
+        listView = findViewById(R.id.audio_list)
         adapter = CustomAdapter(this, audioList)
         listView.adapter = adapter
 
@@ -32,8 +32,7 @@ class MainActivity : AppCompatActivity() {
         getVideoList()
 
         val intent = Intent(applicationContext, VideoActivity::class.java)
-        intent.putExtra("video_list", videoList as ArrayList<Video>)
-        intent.putExtra("position", 0)
+        intent.putExtra("video", videoList[0])
         startActivity(intent)
 
 

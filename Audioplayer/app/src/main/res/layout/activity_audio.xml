@@ -21,7 +21,7 @@
         android:paddingBottom="30dp">
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/audio_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -29,7 +29,7 @@
             android:textSize="30sp"/>
 
         <TextView
-            android:id="@+id/text_artist"
+            android:id="@+id/audio_artist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -43,24 +43,22 @@
             android:layout_marginTop="14dp">
 
             <TextView
-                android:id="@+id/player_position"
+                android:id="@+id/audio_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00:00"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
 
             <SeekBar
-                android:id="@+id/seek_bar"
+                android:id="@+id/audio_seekbar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/player_duration"
+                android:id="@+id/audio_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00:00"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
         </LinearLayout>
@@ -72,35 +70,35 @@
             android:layout_marginTop="8dp">
 
             <ImageView
-                android:id="@+id/bt_rewind"
+                android:id="@+id/audio_rewind"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_rewind"/>
 
             <ImageView
-                android:id="@+id/bt_prev"
+                android:id="@+id/audio_prev"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_prev"/>
 
             <ImageView
-                android:id="@+id/bt_play"
+                android:id="@+id/audio_play"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_play"/>
 
             <ImageView
-                android:id="@+id/bt_next"
+                android:id="@+id/audio_next"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_next"/>
 
             <ImageView
-                android:id="@+id/bt_forward"
+                android:id="@+id/audio_forward"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
