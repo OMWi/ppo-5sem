@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Game</string>
     <string name="rating">Rating:</string>
-    <string name="nickname">Enter nickname</string>
+    <string name="enter_nickname">Enter nickname</string>
+    <string name="name">Name</string>
+    <string name="nickname">Nickname</string>
+    <string name="confirm">Confirm</string>
+    <string name="enter_info">Enter info</string>
+    <string name="score">Score:</string>
+    <string name="play_again">Play again</string>
 </resources>

@@ -1,24 +1,25 @@
 package com.example.game
 
-import android.graphics.drawable.Drawable
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.view.MotionEvent
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
+import kotlin.random.Random
 
 class GameActivity : AppCompatActivity() {
-    private lateinit var frame: FrameLayout
+    private lateinit var frame: LinearLayout
     private lateinit var player: ImageView
-    private lateinit var debug: TextView
+    private lateinit var orb: ImageView
+    private lateinit var textTimer: TextView
+    private lateinit var textScore: TextView
 
-    private lateinit var playerDrawable: Drawable
     private var isMoving = false
     private var timer = Timer()
     private var handler = Handler()
@@ -26,20 +27,25 @@ class GameActivity : AppCompatActivity() {
     private var targetX = 0.0F
     private var targetY = 0.0F
 
-    private val minSpeed = 2.0
-    private val maxSpeed = 50.0
-    private val boost = 0.05
+    private val minSpeed = 3.0
+    private val maxSpeed = 30.0
+    private val boost = 0.005
     private var speed = minSpeed
 
+    private var secondsLeft = 60
+    private var totalScore = 0
+    private val scoreForOrb = 100
 
-
+    private lateinit var nickname: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
+        nickname = intent.extras!!.getString("nickname").toString()
+
         findViews()
-        playerDrawable = resources.getDrawable(R.drawable.ic_player)
+        textScore.text = "$totalScore"
 
         frame.setOnTouchListener { _, event ->
             when(event!!.action) {
@@ -53,9 +59,6 @@ class GameActivity : AppCompatActivity() {
                     targetX = event.x - player.width / 2
                     targetY = event.y - player.height / 2
                 }
-                else -> {
-                    isMoving = false
-                }
             }
             true
         }
@@ -65,12 +68,44 @@ class GameActivity : AppCompatActivity() {
                 handler.post { move() }
             }
         }, 0, 10)
+
+        startTimeCounter()
+    }
+
+    private fun startTimeCounter() {
+        object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                secondsLeft--
+                textTimer.text = "$secondsLeft s"
+            }
+
+            override fun onFinish() {
+                isMoving = false
+                finish()
+            }
+        }.start()
     }
 
     private fun findViews() {
         frame = findViewById(R.id.frame)
         player = findViewById(R.id.player)
-        debug = findViewById(R.id.text_debug)
+        orb = findViewById(R.id.orb)
+        textTimer = findViewById(R.id.text_timer)
+        textScore = findViewById(R.id.text_score)
+    }
+
+    private fun orbSpawn() {
+        val padding = 30
+        val screenX = frame.measuredWidth - padding * 2
+        val screenY = frame.measuredHeight - padding * 2
+        var newX = Random.nextFloat() * screenX + padding
+        while((newX > player.x) and (newX < player.x + player.width))
+            newX = Random.nextFloat() * screenX + padding
+        var newY = Random.nextFloat() * screenY + padding
+        while((newY > player.y) and (newY < player.y + player.height))
+            newY = Random.nextFloat() * screenY + padding
+        orb.x = newX
+        orb.y = newY
     }
 
     private fun move() {
@@ -78,7 +113,6 @@ class GameActivity : AppCompatActivity() {
             isMoving = false
         }
         if (!isMoving) {
-            speed = minSpeed
             return
         }
         speed += boost
@@ -92,6 +126,19 @@ class GameActivity : AppCompatActivity() {
             player.x = targetX
             player.y = targetY
         }
-        debug.text = String.format("speed %.2f", speed)
+        if ((player.x < orb.x + orb.width / 2) and (orb.x + orb.width / 2 < (player.x + player.width))
+                and (player.y < orb.y + orb.height / 2) and (orb.y + orb.height / 2 < (player.y + player.height))) {
+            totalScore += scoreForOrb
+            textScore.text = "$totalScore"
+            orbSpawn()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val intent = Intent(applicationContext, ResultActivity::class.java)
+        intent.putExtra("score", totalScore)
+        intent.putExtra("nickname", nickname)
+        startActivity(intent)
     }
 }

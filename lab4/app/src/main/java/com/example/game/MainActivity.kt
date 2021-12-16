@@ -3,6 +3,7 @@ package com.example.game
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.BaseColumns
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         buttonPlay.setOnClickListener {
             if (isLogin) {
                 val intent = Intent(applicationContext, GameActivity::class.java)
-                intent.putExtra("name", textName.text)
+                intent.putExtra("nickname", textName.text)
                 startActivity(intent)
             }
             else {
