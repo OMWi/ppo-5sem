@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Game">
         <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RatingActivity"
+            android:exported="true" />
+        <activity
             android:name=".GameActivity"
             android:exported="true" />
         <activity

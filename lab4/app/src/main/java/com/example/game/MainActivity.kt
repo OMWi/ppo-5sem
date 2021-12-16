@@ -1,5 +1,6 @@
 package com.example.game
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -14,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonPlay: Button
     private lateinit var buttonRating: Button
     private lateinit var userPanel: LinearLayout
+
+    private var isLogin = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +37,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun addListeners() {
         buttonPlay.setOnClickListener {
-            Toast.makeText(this, "Button play", Toast.LENGTH_SHORT).show()
+            if (isLogin) {
+                val intent = Intent(applicationContext, GameActivity::class.java)
+                intent.putExtra("name", textName.text)
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(this, "Login is required", Toast.LENGTH_SHORT).show()
+            }
         }
         buttonRating.setOnClickListener{
-            Toast.makeText(this, "Button rating", Toast.LENGTH_SHORT).show()
+            val intent = Intent(applicationContext, RatingActivity::class.java)
+            startActivity(intent)
         }
         userPanel.setOnClickListener {
-            Toast.makeText(this, "User panel", Toast.LENGTH_SHORT).show()
+            val intent = Intent(applicationContext, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
-
-
 }
