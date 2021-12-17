@@ -8,6 +8,7 @@
     tools:context=".AudioActivity">
 
     <ImageView
+        android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:src="@drawable/ic_music"/>

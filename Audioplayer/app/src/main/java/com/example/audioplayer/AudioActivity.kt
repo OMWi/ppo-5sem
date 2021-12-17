@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.MotionEvent
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
@@ -25,6 +26,7 @@ class AudioActivity : AppCompatActivity() {
     private lateinit var btForward: ImageView
     private lateinit var textTitle: TextView
     private lateinit var textArtist: TextView
+    private lateinit var imageView: ImageView
 
     private lateinit var audioList: ArrayList<Audio>
     private var REQUEST_CODE = 1
@@ -32,6 +34,9 @@ class AudioActivity : AppCompatActivity() {
     private lateinit var uri: Uri
     private var mediaPlayer: MediaPlayer? = null
     private var handler = Handler()
+
+    private var xDown = 0.0F
+    private var xUp = 0.0F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +52,37 @@ class AudioActivity : AppCompatActivity() {
         btForward = findViewById(R.id.audio_forward)
         textTitle = findViewById(R.id.audio_title)
         textArtist = findViewById(R.id.audio_artist)
+        imageView = findViewById(R.id.image_view)
+
+        imageView.setOnTouchListener{ _, event ->
+            when (event!!.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    xDown = event.x
+                }
+                MotionEvent.ACTION_UP -> {
+                    xUp = event.x
+                    if ((xUp - xDown) > 50) {
+                        // swipe left
+                        if (position == 0) {
+                            position = audioList.size - 1
+                        }
+                        else position -= 1
+                        changeAudio(position)
+                    }
+                    else if ((xUp - xDown < -50)) {
+                        // swipe right
+                        if (position == (audioList.size - 1)) {
+                            position = 0
+                        }
+                        else position += 1
+                        changeAudio(position)
+
+                    }
+
+                }
+            }
+            true
+        }
 
         audioList = intent.extras!!.get("audio_list") as ArrayList<Audio>
         position = intent.extras!!.getInt("position")
