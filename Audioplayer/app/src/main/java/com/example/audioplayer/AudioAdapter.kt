@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 
-class CustomAdapter(_context: Context, _results: MutableList<Audio>) : BaseAdapter(){
+class AudioAdapter(_context: Context, _results: MutableList<Audio>) : BaseAdapter(){
     private var results = _results
     private var context = _context
     private var inflater = LayoutInflater.from(context)

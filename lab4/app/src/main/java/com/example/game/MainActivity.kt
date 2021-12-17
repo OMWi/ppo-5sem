@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         }
         buttonRating.setOnClickListener{
             val intent = Intent(applicationContext, RatingActivity::class.java)
+            val ratingArray = arrayListOf(Rating("name1", "nick1", 200), Rating("name2", "nick2", 300))
+            intent.putExtra("rating_list", ratingArray)
             startActivity(intent)
         }
         userPanel.setOnClickListener {

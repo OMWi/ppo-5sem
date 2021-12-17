@@ -5,43 +5,71 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var listView: ListView
-    private lateinit var adapter: CustomAdapter
+    private lateinit var audioListView: ListView
+    private lateinit var videoListView: ListView
+    private lateinit var buttonSwitch: Button
+
+    private lateinit var audioAdapter: AudioAdapter
+    private lateinit var videoAdapter: VideoAdapter
 
     private var REQUEST_PERMISSION = 1
     private var audioList = mutableListOf<Audio>()
     private var videoList = mutableListOf<Video>()
+
+    private var curStatus = 0
+    private val videoStatus = 1
+    private val audioStatus = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        listView = findViewById(R.id.audio_list)
-        adapter = CustomAdapter(this, audioList)
-        listView.adapter = adapter
+        buttonSwitch = findViewById(R.id.button_switch)
+
+        audioListView = findViewById(R.id.audio_list)
+        audioAdapter = AudioAdapter(this, audioList)
+        audioListView.adapter = audioAdapter
+
+        videoListView = findViewById(R.id.video_list)
+        videoAdapter = VideoAdapter(this, videoList)
+        videoListView.adapter = videoAdapter
 
         permission()
         getAudioList()
         getVideoList()
 
-        val intent = Intent(applicationContext, VideoActivity::class.java)
-        intent.putExtra("video", videoList[0])
-        startActivity(intent)
-
-
-
-        listView.setOnItemClickListener { parent, view, position, id ->
+        audioListView.setOnItemClickListener { parent, view, position, id ->
             val intent = Intent(applicationContext, AudioActivity::class.java)
             intent.putExtra("audio_list", audioList as ArrayList<Audio>)
             intent.putExtra("position", position)
             startActivity(intent)
+        }
+
+        videoListView.setOnItemClickListener { parent, view, position, id ->
+            val intent = Intent(applicationContext, VideoActivity::class.java)
+            intent.putExtra("video", videoList[position])
+            startActivity(intent)
+        }
+
+        buttonSwitch.setOnClickListener {
+            if (curStatus == audioStatus) {
+                curStatus = videoStatus
+                audioListView.visibility = View.GONE
+                videoListView.visibility = View.VISIBLE
+            }
+            else if (curStatus == videoStatus) {
+                curStatus = audioStatus
+                videoListView.visibility = View.GONE
+                audioListView.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -86,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             }
             cursor.close()
         }
-        adapter.notifyDataSetChanged()
+        audioAdapter.notifyDataSetChanged()
     }
 
     private fun getVideoList() {
