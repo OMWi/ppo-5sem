@@ -1,12 +1,18 @@
 package com.example.audioplayer
 
+import android.content.res.Configuration
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.widget.MediaController
 import android.widget.VideoView
 import java.io.File
+import androidx.annotation.NonNull
+
+
+
 
 class VideoActivity : AppCompatActivity() {
     private lateinit var videoView: VideoView
@@ -28,5 +34,15 @@ class VideoActivity : AppCompatActivity() {
         val uri = Uri.fromFile(File(video.path))
         videoView.setVideoURI(uri)
         videoView.start()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation === Configuration.ORIENTATION_LANDSCAPE) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+
+        } else if (newConfig.orientation === Configuration.ORIENTATION_PORTRAIT) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
     }
 }

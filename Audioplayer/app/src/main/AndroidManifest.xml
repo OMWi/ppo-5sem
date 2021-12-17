@@ -14,7 +14,8 @@
         android:theme="@style/Theme.AudioPlayer" >
         <activity
             android:name=".VideoActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:configChanges="screenSize|orientation|screenLayout|navigation"/>
         <activity
             android:name=".AudioActivity"
             android:exported="true" />
