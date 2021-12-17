@@ -1,5 +1,6 @@
 package com.example.game
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -32,7 +33,7 @@ class GameActivity : AppCompatActivity() {
     private val boost = 0.005
     private var speed = minSpeed
 
-    private var secondsLeft = 60
+    private var secondsLeft = 20
     private var totalScore = 0
     private val scoreForOrb = 100
 
@@ -46,7 +47,6 @@ class GameActivity : AppCompatActivity() {
 
         findViews()
         textScore.text = "$totalScore"
-
         frame.setOnTouchListener { _, event ->
             when(event!!.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -69,11 +69,13 @@ class GameActivity : AppCompatActivity() {
             }
         }, 0, 10)
 
+        orb.x = 100.0F
+        orb.y = 100.0F
         startTimeCounter()
     }
 
     private fun startTimeCounter() {
-        object : CountDownTimer(60000, 1000) {
+        object : CountDownTimer((secondsLeft * 1000).toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 secondsLeft--
                 textTimer.text = "$secondsLeft s"
@@ -81,6 +83,14 @@ class GameActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 isMoving = false
+                val intent = Intent(applicationContext, ResultActivity::class.java)
+                intent.putExtra("score", totalScore)
+                intent.putExtra("nickname", nickname)
+                startActivity(intent)
+                val data = Intent()
+                data.putExtra("name", nickname)
+                data.putExtra("score", totalScore)
+                setResult(Activity.RESULT_OK, data)
                 finish()
             }
         }.start()
@@ -132,13 +142,5 @@ class GameActivity : AppCompatActivity() {
             textScore.text = "$totalScore"
             orbSpawn()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        val intent = Intent(applicationContext, ResultActivity::class.java)
-        intent.putExtra("score", totalScore)
-        intent.putExtra("nickname", nickname)
-        startActivity(intent)
     }
 }

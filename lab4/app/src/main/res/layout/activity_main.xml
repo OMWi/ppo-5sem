@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:background="@color/purple_200">
+        android:background="@color/purple_500">
 
         <TextView
             android:id="@+id/text_menu_name"

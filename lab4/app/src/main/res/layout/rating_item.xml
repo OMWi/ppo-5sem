@@ -20,13 +20,13 @@
             android:textColor="@color/black"
             android:paddingTop="4dp"/>
 
-        <TextView
-            android:id="@+id/rating_item_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:paddingTop="4dp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/rating_item_nickname"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:paddingTop="4dp"/>-->
     </LinearLayout>
 
     <TextView

@@ -4,6 +4,5 @@ import java.io.Serializable
 
 data class Rating(
     val name: String,
-    val nickname: String,
-    val score: Int
+    val score: String
 ) : Serializable

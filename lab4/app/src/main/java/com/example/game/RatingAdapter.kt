@@ -48,7 +48,7 @@ class RatingAdapter(_context: Context, _results: MutableList<Rating>) : BaseAdap
 
         var rating = filteredResults[position]
         viewHolder.textName.text = "${rating.name}"
-        viewHolder.textNickname.text = "(${rating.nickname})"
+//        viewHolder.textNickname.text = "(${rating.nickname})"
         viewHolder.textScore.text = "Score: ${rating.score}"
         return convertView
     }
@@ -56,7 +56,7 @@ class RatingAdapter(_context: Context, _results: MutableList<Rating>) : BaseAdap
     private class ViewHolder(view: View) {
         var textName: TextView = view.findViewById(R.id.rating_item_name)
         var textScore: TextView = view.findViewById(R.id.rating_item_score)
-        var textNickname: TextView = view.findViewById(R.id.rating_item_nickname)
+//        var textNickname: TextView = view.findViewById(R.id.rating_item_nickname)
     }
 
     private inner class ItemFilter : Filter() {

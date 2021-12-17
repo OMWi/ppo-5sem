@@ -11,25 +11,32 @@ class ResultActivity : AppCompatActivity() {
     private lateinit var textScore: TextView
     private lateinit var buttonReplay: Button
 
+    private lateinit var name: String
+    private lateinit var score: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
 
         findViews()
 
-        textNickname.text = intent.extras!!.getString("nickname")
-        textScore.text = intent.extras!!.getString("score")
-        buttonReplay.setOnClickListener {
-            val intent = Intent(applicationContext, GameActivity::class.java)
-            intent.putExtra("nickname", textNickname.text)
-            startActivity(intent)
-            finish()
-        }
+        val extras: Bundle? = intent.extras
+        name = extras!!.get("nickname").toString()
+        score = extras.get("score").toString()
+
+        textNickname.text = name
+        textScore.text = "Score $score"
+//        buttonReplay.setOnClickListener {
+//            val intent = Intent(applicationContext, GameActivity::class.java)
+//            intent.putExtra("nickname", textNickname.text)
+//            startActivity(intent)
+//            finish()
+//        }
     }
 
     private fun findViews() {
         textNickname = findViewById(R.id.res_nickname)
         textScore = findViewById(R.id.res_score)
-        buttonReplay = findViewById(R.id.button_res_replay)
+//        buttonReplay = findViewById(R.id.button_res_replay)
     }
 }
