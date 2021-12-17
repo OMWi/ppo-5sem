@@ -104,8 +104,8 @@ class MainActivity : AppCompatActivity() {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 val path = cursor.getString(3)
-                if (!path.contains("/MediaPlayer/Audio/"))
-                    continue
+//                if (!path.contains("/MediaPlayer/Audio/"))
+//                    continue
                 val title = cursor.getString(0)
                 val artist = cursor.getString(1)
                 val duration = cursor.getString(2)
@@ -128,9 +128,8 @@ class MainActivity : AppCompatActivity() {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 val path = cursor.getString(2)
-                print(path)
-                if (!path.contains("/MediaPlayer/Video/"))
-                    continue
+//                if (!path.contains("/MediaPlayer/Video/"))
+//                    continue
                 val title = cursor.getString(0)
                 val duration = cursor.getString(1)
                 val video = Video(path, title, duration)
